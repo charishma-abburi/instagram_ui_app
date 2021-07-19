@@ -1,13 +1,8 @@
-//import 'package:flutter/animation.dart';
+
 
 
 import 'package:flutter/material.dart';
 import 'package:instagram_ui_app/Screens/PostItem.dart';
-//import 'package:instagram_ui_app/Screens/InstaStories.dart';
-//import 'package:instagram_ui_app/Screens/InstaStories.dart';
-//import 'package:instagram_ui_app/Screens/Instalist.dart';
-//import 'package:instagram_ui_app/Screens/InstaStories.dart';
-//import 'package:instagram_ui_app/Screens/Instalist.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -125,7 +120,7 @@ class _HomePageState extends State<HomePage> {
       "postImg":
       "assets/images/Rectangle.png",
       "caption": "A Fine day",
-      "isLoved": true,
+      "isLoved": false,
       "commentCount": "10",
       "likedBy": "hey_you",
       "timeAgo": "1 day ago"
@@ -139,7 +134,7 @@ class _HomePageState extends State<HomePage> {
       "assets/images/Rectangle.png",
       "caption":
       "",
-      "isLoved": true,
+      "isLoved": false,
       "commentCount": "10",
       "likedBy": "sonitakhoun",
       "timeAgo": "1 day ago"

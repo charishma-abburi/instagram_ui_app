@@ -52,7 +52,35 @@ class _HomeState extends State<Home> {
             label: 'home',
           ),
           BottomNavigationBarItem(
-            icon: _selectedIndex ==1 ?  Icon(Icons.search,color: Colors.black,size: 30,): Icon(Icons.search_outlined,color: Colors.black,size: 30,),
+            icon: _selectedIndex ==1 ?
+            Tab(icon:   Container(
+              width: 30,
+              height: 30,
+              decoration: BoxDecoration(
+                //  border: Border.all(
+                //    color: Colors.white,
+                //    width: 2,
+                //  ),
+                  shape: BoxShape.circle,
+                  image: DecorationImage(image: AssetImage('assets/images/Search.png'),fit: BoxFit.cover)
+              ),
+            ),
+            )
+            :
+            Tab(icon:   Container(
+              width: 25,
+              height: 25,
+              decoration: BoxDecoration(
+                //  border: Border.all(
+                //    color: Colors.white,
+                //    width: 2,
+                //  ),
+                  shape: BoxShape.circle,
+                  image: DecorationImage(image: AssetImage('assets/images/Search_outlined.png'),fit: BoxFit.fitWidth)
+              ),
+            ),
+            ) ,
+
             label: 'search',
           ),
           BottomNavigationBarItem(
