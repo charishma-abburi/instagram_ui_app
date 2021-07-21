@@ -3,7 +3,6 @@ import 'package:instagram_ui_app/Screens/AddPage.dart';
 import 'package:instagram_ui_app/Screens/DmPage.dart';
 import 'package:instagram_ui_app/Screens/FavoritePage.dart';
 import 'package:instagram_ui_app/Screens/HomePage.dart';
-//import 'package:instagram_ui_app/Screens/Instalist.dart';
 import 'package:instagram_ui_app/Screens/ProfilePage.dart';
 import 'package:instagram_ui_app/Screens/SearchPage.dart';
 
