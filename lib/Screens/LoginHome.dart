@@ -32,11 +32,11 @@ class LoginHome extends StatelessWidget {
                   minimumSize: Size(307, 50),
                 //  padding: EdgeInsets.symmetric(horizontal: 16.0),
                   shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   ),
                 ),
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(builder: (context) => Login()),
                       );
@@ -59,11 +59,11 @@ class LoginHome extends StatelessWidget {
                   side: BorderSide(color: Colors.blue, width: 1),
                   //  padding: EdgeInsets.symmetric(horizontal: 16.0),
                   shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   ),
                 ),
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => SignUp()),
                   );

@@ -1,177 +1,254 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_ui_app/Screens/Home.dart';
 import 'package:instagram_ui_app/Screens/Login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+//import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
 
-class SignUp extends StatelessWidget {
+const greycolor = Color(0xFFE0E0E0);
+
+class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
+
+  @override
+  _SignUpState createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  late bool _success;
+  late String? _userEmail;
+  final _auth = FirebaseAuth.instance;
+
+  void _register() async {
+    final User? user = (await _auth.createUserWithEmailAndPassword(
+      email: _emailController.text,
+      password: _passwordController.text,
+    ))
+        .user;
+    if (user != null) {
+      setState(() {
+        _success = true;
+        _userEmail = user.email;
+      });
+    } else {
+      setState(() {
+        _success = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey[50],
-       // automaticallyImplyLeading: false,
-        leading: IconButton(icon:Icon(Icons.arrow_back_ios_outlined),
-          color: Colors.black, onPressed: () {Navigator.pop(context);},
+        // automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_outlined),
+          color: Colors.black,
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         elevation: 0,
       ),
-        body : SingleChildScrollView(
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
           child: Center(
-          child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-          Padding(
-          padding: EdgeInsets.fromLTRB(97, 100, 96, 0),
-           child : Image(
-            image : AssetImage('assets/images/Instagram Logo.png'),
-           ),
-             ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(35, 50, 33, 0),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  contentPadding:
-                  EdgeInsets.fromLTRB(10, 10, 33, 0),
-                  labelText: "Username",
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(10.0)),
-                    borderSide:
-                    BorderSide(color: Colors.blueGrey),
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.fromLTRB(97, 100, 96, 0),
+                  child: Image(
+                    image: AssetImage('assets/images/Instagram Logo.png'),
                   ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(35, 10, 33, 0),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  contentPadding:
-                  EdgeInsets.fromLTRB(10, 10, 33, 0),
-                  labelText: "Email",
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(10.0)),
-                    borderSide:
-                    BorderSide(color: Colors.blueGrey),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(35, 10, 33, 0),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  contentPadding:
-                  EdgeInsets.fromLTRB(10, 10, 33, 0),
-                  labelText: "Password",
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(10.0)),
-                    borderSide:
-                    BorderSide(color: Colors.blueGrey),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(35, 50, 33, 0),
+                  child: TextFormField(
+                    cursorColor: Colors.black38,
+                    cursorWidth: 0.5,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[100],
+                      contentPadding: EdgeInsets.fromLTRB(10, 10, 33, 0),
+                      hintText: "Username",
+                      hintStyle: TextStyle(
+                        color: Colors.grey[400],
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        borderSide: BorderSide(color: greycolor),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        borderSide: BorderSide(color: greycolor),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(35, 10, 33, 0),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  contentPadding:
-                  EdgeInsets.fromLTRB(10, 10, 33, 0),
-                  labelText: "Confirm Password",
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(10.0)),
-                    borderSide:
-                    BorderSide(color: Colors.blueGrey),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(35, 30, 33, 0),
-              child :TextButton(
-                style: TextButton.styleFrom(
-                  primary: Colors.white,
-                  backgroundColor: Colors.blue,
-                  minimumSize: Size(307, 50),
-                  //  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(35, 10, 33, 0),
+                  child: TextFormField(
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    controller: _emailController,
+                    cursorColor: Colors.black38,
+                    cursorWidth: 0.5,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[100],
+                      contentPadding: EdgeInsets.fromLTRB(10, 10, 33, 0),
+                      hintText: "Email",
+                      hintStyle: TextStyle(
+                        color: Colors.grey[400],
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        borderSide: BorderSide(color: greycolor),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        borderSide: BorderSide(color: greycolor),
+                      ),
+                    ),
                   ),
                 ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Home()),
-                  );
-                },
-                child: Text('Sign Up'),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-              child : Text("Already have an account?"),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 0,0, 0),
-              child :TextButton(
-                style: TextButton.styleFrom(
-                  primary: Colors.blue,
-                  // backgroundColor: Colors.blue,
-                  //  minimumSize: Size(307, 50),
-                  //  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  // shape: const RoundedRectangleBorder(
-                  //   borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  // ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(35, 10, 33, 0),
+                  child: TextFormField(
+                    controller: _passwordController,
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                    cursorColor: Colors.black38,
+                    cursorWidth: 0.5,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[100],
+                      contentPadding: EdgeInsets.fromLTRB(10, 10, 33, 0),
+                      hintText: "Password",
+                      hintStyle: TextStyle(
+                        color: Colors.grey[400],
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        borderSide: BorderSide(color: greycolor),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        borderSide: BorderSide(color: greycolor),
+                      ),
+                    ),
+                  ),
                 ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Login()),
-                  );
-                },
-                child: Text('Log In'),
-              ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(35, 10, 33, 0),
+                  child: TextFormField(
+                    cursorColor: Colors.black38,
+                    cursorWidth: 0.5,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[100],
+                      contentPadding: EdgeInsets.fromLTRB(10, 10, 33, 0),
+                      hintText: "Confirm Password",
+                      hintStyle: TextStyle(
+                        color: Colors.grey[400],
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        borderSide: BorderSide(
+                          color: greycolor,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        borderSide: BorderSide(color: greycolor),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(35, 30, 33, 0),
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Colors.white,
+                      backgroundColor: Colors.blue,
+                      minimumSize: Size(307, 50),
+                      //  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      ),
+                    ),
+                    onPressed: () async {
+                      var currentState = _formKey.currentState;
+                      var validate = currentState?.validate();
+                      if (validate != null) {
+                        _register();
+                      }
+                      if (_success) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => Home()),
+                        );
+                      } else {
+                        return null;
+                      }
+                    },
+                    child: Text('Sign Up'),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                  child: Text("Already have an account?"),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Colors.blue,
+                      // backgroundColor: Colors.blue,
+                      //  minimumSize: Size(307, 50),
+                      //  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      // shape: const RoundedRectangleBorder(
+                      //   borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      // ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Login()),
+                      );
+                    },
+                    child: Text('Log In'),
+                  ),
+                ),
+              ],
             ),
-          ],
-
-          ),
           ),
         ),
+      ),
     );
   }
-}
 
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+}
